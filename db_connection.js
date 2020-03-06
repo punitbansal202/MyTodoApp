@@ -1,15 +1,17 @@
-const mysql = require('mysql');
+const Sequelize = require('sequelize');
 
-const db = mysql.createConnection({
+const sequelize = new Sequelize('todosDB', 'punit', 'password', {
   host: 'localhost',
-  user: 'punit',
-  password: 'password',
-  database: 'todosDB'
+  dialect: `mysql`
 });
 
-db.connect(function(err) {
-  if (err) throw err;
-  console.log('Connected!');
-});
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
-global.db = db;
+global.sequelize = sequelize;
