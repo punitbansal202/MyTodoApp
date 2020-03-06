@@ -4,7 +4,9 @@
   "description": "Todo app for users",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon server"
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Punit Bansal",
   "license": "MIT",
@@ -13,7 +15,6 @@
     "config": "^3.3.0",
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
-    "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
     "sequelize": "^5.21.5"
   },
