@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const url = require('url');
+
 // Load User model
 const Todo = require('../models/todo');
 
@@ -12,7 +13,7 @@ router.post('/todos', (req, res) => {
     status: req.body.status
   }).then(todo => {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(todo, null, 1));
+    res.end(JSON.stringify(todo));
   });
 });
 
@@ -30,10 +31,10 @@ router.put('/todos?:id', (req, res) => {
   ).then(result => {
     if (result == 0) {
       res.writeHead(404, { 'Content-Type': 'application/json' });
-      res.end('task not found');
+      res.end(JSON.stringify('FAILED'));
     } else {
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end('successfully updated');
+      res.end(JSON.stringify('SUCCESS'));
     }
   });
 });
@@ -48,10 +49,10 @@ router.delete('/todos?:id', (req, res) => {
   }).then(result => {
     if (result == 0) {
       res.writeHead(404, { 'Content-Type': 'application/json' });
-      res.end('task not found');
+      res.end(JSON.stringify('FAILED'));
     } else {
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end('successfully deleted');
+      res.end(JSON.stringify('SUCCESS'));
     }
   });
 });
@@ -60,8 +61,11 @@ router.delete('/todos?:id', (req, res) => {
 // @desc    Return all task
 router.get('/todos', (req, res) => {
   Todo.findAll().then(todos => {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify(todos, null, 2));
+    res.writeHead(200, {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*'
+    });
+    res.end(JSON.stringify(todos));
   });
 });
 
