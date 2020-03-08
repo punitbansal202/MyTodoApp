@@ -30,7 +30,7 @@ CREATE DATABASE todosDB;
 
 CREATE TABLE todos (
 `id` int NOT NULL,
-todo varchar(200) NOT NULL,
+task varchar(200) NOT NULL,
 status varchar(200) NOT NULL
 );
 
