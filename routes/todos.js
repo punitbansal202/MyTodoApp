@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const url = require('url');
 
-// Load User model
+// Load Todo model
 const Todo = require('../models/todo');
 
 // @route   POST api/todos
