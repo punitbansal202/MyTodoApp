@@ -10,7 +10,7 @@ class TodoList extends Component {
   }
 
   componentDidMount() {
-    //Get TodoList api request
+    //Get TodoList api request as soon as TodoList component mount
     axios.get('http://localhost:8000/api/todos').then(res => {
       const tasks = res.data;
       this.setState({ tasks });
@@ -22,6 +22,7 @@ class TodoList extends Component {
     this.setState({ task: event.target.value });
   };
 
+  // submit event for add new task
   handleSubmit = event => {
     event.preventDefault();
 
@@ -40,6 +41,7 @@ class TodoList extends Component {
     });
   };
 
+  //delete event for deleting existing task.
   handleDelete = event => {
     event.preventDefault();
     const filteredArray = this.state.tasks.filter(
