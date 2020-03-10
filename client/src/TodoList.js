@@ -11,10 +11,12 @@ class TodoList extends Component {
 
   componentDidMount() {
     //Get TodoList api request as soon as TodoList component mount
-    axios.get('/api/todos').then(res => {
-      const tasks = res.data;
-      this.setState({ tasks });
-    });
+    axios
+      .get('http://localhost:' + process.env.PORT + '/api/todos')
+      .then(res => {
+        const tasks = res.data;
+        this.setState({ tasks });
+      });
   }
 
   // create new task api request
@@ -32,13 +34,19 @@ class TodoList extends Component {
     };
     const tasksCopy = this.state.tasks.slice();
 
-    axios.post('/api/todos', newTask).then(res => {
-      if (res.data.id) {
-        newTask = { id: res.data.id, task: this.state.task, status: 'active' };
-        tasksCopy.push(newTask);
-        this.setState({ tasks: tasksCopy });
-      }
-    });
+    axios
+      .post('http://localhost:' + process.env.PORT + '/api/todos', newTask)
+      .then(res => {
+        if (res.data.id) {
+          newTask = {
+            id: res.data.id,
+            task: this.state.task,
+            status: 'active'
+          };
+          tasksCopy.push(newTask);
+          this.setState({ tasks: tasksCopy });
+        }
+      });
   };
 
   //delete event for deleting existing task.
@@ -47,11 +55,17 @@ class TodoList extends Component {
     const filteredArray = this.state.tasks.filter(
       item => item.id !== Number(event.target.name)
     );
-    axios.delete(`/api/todos?id=${event.target.name}`).then(res => {
-      if (res.data === 'SUCCESS') {
-        this.setState({ tasks: filteredArray });
-      }
-    });
+    axios
+      .delete(
+        'http://localhost:' +
+          process.env.PORT +
+          '/api/todos?id=${event.target.name}'
+      )
+      .then(res => {
+        if (res.data === 'SUCCESS') {
+          this.setState({ tasks: filteredArray });
+        }
+      });
   };
 
   render() {
