@@ -1,9 +1,8 @@
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('todosDB', 'punit', 'password', {
-  host: 'localhost',
-  dialect: `mysql`
-});
+const mysql_uri =
+  process.env.MYSQL_URI || 'mysql://punit:password@localhost/todosdb';
+const sequelize = new Sequelize(mysql_uri);
 
 sequelize
   .authenticate()

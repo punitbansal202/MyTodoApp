@@ -11,7 +11,7 @@ class TodoList extends Component {
 
   componentDidMount() {
     //Get TodoList api request as soon as TodoList component mount
-    axios.get('http://localhost:8000/api/todos').then(res => {
+    axios.get('/api/todos').then(res => {
       const tasks = res.data;
       this.setState({ tasks });
     });
@@ -32,7 +32,7 @@ class TodoList extends Component {
     };
     const tasksCopy = this.state.tasks.slice();
 
-    axios.post('http://localhost:8000/api/todos', newTask).then(res => {
+    axios.post('/api/todos', newTask).then(res => {
       if (res.data.id) {
         newTask = { id: res.data.id, task: this.state.task, status: 'active' };
         tasksCopy.push(newTask);
@@ -47,13 +47,11 @@ class TodoList extends Component {
     const filteredArray = this.state.tasks.filter(
       item => item.id !== Number(event.target.name)
     );
-    axios
-      .delete(`http://localhost:8000/api/todos?id=${event.target.name}`)
-      .then(res => {
-        if (res.data === 'SUCCESS') {
-          this.setState({ tasks: filteredArray });
-        }
-      });
+    axios.delete(`/api/todos?id=${event.target.name}`).then(res => {
+      if (res.data === 'SUCCESS') {
+        this.setState({ tasks: filteredArray });
+      }
+    });
   };
 
   render() {
