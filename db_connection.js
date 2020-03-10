@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 const mysql_uri =
-  process.env.MYSQL_URI || 'mysql://punit:password@localhost/todosdb';
+  process.env.MYSQL_URI || 'mysql://punit:password@192.168.0.100/todosdb';
 const sequelize = new Sequelize(mysql_uri);
 
 sequelize
