@@ -1,12 +1,11 @@
-const Sequelize = require('sequelize');
+const mongoose = require('mongoose');
 
-const sequelize = new Sequelize('todosDB', 'punit', 'password', {
-  host: 'localhost',
-  dialect: `mysql`
-});
-
-sequelize
-  .authenticate()
+mongoose
+  .connect('mongodb://127.0.0.1:27017/todosDB', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+  })
   .then(() => {
     console.log('Connection has been established successfully.');
   })
@@ -14,4 +13,4 @@ sequelize
     console.error('Unable to connect to the database:', err);
   });
 
-global.sequelize = sequelize;
+global.mongoose = mongoose;
